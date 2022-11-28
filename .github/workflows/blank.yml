@@ -19,7 +19,7 @@ jobs:
         run: echo "current branch name - ${{ env.TAG }}"
 
       - name: Release & Tag 생성
-        if: github.event.pull_request.merged == true && env.TAG != '{0}'
+        if: github.event.pull_request.merged == true && env.TAG != ''
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
