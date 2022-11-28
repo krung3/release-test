@@ -15,9 +15,11 @@ jobs:
 
       - name: 버전 정보 추출(from Branch Name)
         run: echo "TAG=$(echo '${{ steps.branch-name.outputs.current_branch }}' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')" >> $GITHUB_ENV
+      - name: echo current branch name
+        run: echo "current branch name - ${{ env.TAG }}"
 
       - name: Release & Tag 생성
-        if: github.event.pull_request.merged == true
+        if: github.event.pull_request.merged == true && env.TAG != '-'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
